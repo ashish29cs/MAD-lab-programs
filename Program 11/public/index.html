@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         #tbl {
+           font-family: Arial, Helvetica, sans-serif;
+           border-collapse: collapse;
+           width: 100%;
+         }
+         
+         #tbl td, #tbl th {
+           border: 1px solid #ddd;
+           padding: 8px;
+         }
+         
+         #tbl tr:nth-child(even){background-color: #f2f2f2;}
+         
+         #tbl tr:hover {background-color: #ddd;}
+         
+         #tbl th {
+           padding-top: 12px;
+           padding-bottom: 12px;
+           text-align: left;
+           background-color: #4CAF50;
+           color: white;}
+         
+         </style>
+   </head>
+   <body>
+      <h1>Stock Data</h1>
+      <table id='tbl' border="1px">
+         <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+         </tr>
+      </table>
+   </body>
+   <script>
+      var url = "https://mboum.com/api/v1/hi/history/?symbol=F&interval=5m&diffandsplits=true&apikey=demo"
+      var arr;
+      
+      
+      window.addEventListener('DOMContentLoaded', (event) => {
+       fetch(url)
+      .then(response => response.json())
+      .then(data => {
+      //   console.log(Object.keys(data.items)); 
+      //   console.log(Object.values(data.items));
+        arr = Object.values(data.items);
+        console.log(arr)
+      
+      var bod = document.getElementById("body");
+      var tb = document.getElementById("tbl")
+        for(var i=0;i<arr.length;i++) {
+          var tr = document.createElement('tr');
+      
+          var td = document.createElement('td');
+          td.innerHTML = arr[i].date
+          tr.appendChild(td);
+          tb.appendChild(tr);
+      
+          var td = document.createElement('td');
+          td.innerHTML = arr[i].open
+          tr.appendChild(td);
+          tb.appendChild(tr);
+      
+          var td = document.createElement('td');
+          td.innerHTML = arr[i].high
+          tr.appendChild(td);
+          tb.appendChild(tr);
+      
+          var td = document.createElement('td');
+          td.innerHTML = arr[i].low
+          tr.appendChild(td);
+          tb.appendChild(tr);
+      
+          var td = document.createElement('td');
+          td.innerHTML = arr[i].close
+          tr.appendChild(td);
+          tb.appendChild(tr);
+      
+          //   console.log("|" + arr[i].date + "|" + arr[i].open + "|" +  arr[i].close + "|" +  arr[i].high + "|" +  arr[i].low + "|"  );
+        }
+        })
+        .catch(error => console.log('error', error));
+      
+      });
+      
+   </script>
+</html>
+

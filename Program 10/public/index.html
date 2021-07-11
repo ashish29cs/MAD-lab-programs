@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <link rel="manifest" href="manifest.json">
+    <body>
+        <h1>Github Profile</h1>
+        <input type="text" id="text_input">
+        <input type="button" onclick="gitdata()" value="get profile">
+        <div id='git_image'>
+            <img src="" alt="profile image" id="image">
+            <p id='para'></p>
+        </div>
+        <center>
+            <div class="more">
+             <div class="partOne">
+             <table  align="center"  style="background-image: linear-gradient(to bottom , rgb(224, 207, 210),rgb(221, 137, 137));border: lightseagreen;border-radius:20px;">
+                 <tr>
+     
+                     <td>
+                 <p>
+                     url
+                     <p id="url">
+                     
+                     </p>
+                 </p>
+            
+             </td>
+             </tr>
+     
+                 <tr>
+                 <td>
+           
+                 <p>
+                     html_url
+                 </p>
+                 <p id="html_url">
+                     
+                 </p>
+             </td>
+         </tr>
+     
+         <tr>
+             <td>
+                 <p>
+                     followers
+                 </p>
+                 <p id="followers">
+                     
+                 </p>
+             
+             </td>
+         </tr>
+     
+         <tr>
+             <td>
+                 <p>
+                     following
+                 </p>
+                 <p id="following">
+                     
+                 </p>
+          
+             </td>
+         </tr>
+     
+         <tr>
+             <td>
+                 <p>
+                     gists_url
+                 </p>
+                 <p id="gists_url"> 
+                     
+                 </p>
+        
+             </td>
+         </tr>
+     
+         <tr>
+             <td>
+                 <p>
+                     starred_url
+                 </p>
+                 <p id="starred_url">
+                     
+                 </p>
+             </td>
+         </tr>
+     
+         <tr>
+             <td>
+                 <p>
+                     subscriptions_url
+                 </p>
+                 <p id="subscriptions_url">
+                     
+                 </p>
+             </td>
+         </tr>
+         
+     
+         <tr>
+             <td>
+                 <p>
+                     organizations_url
+                 </p>
+                 <p id="organizations_url">
+                     
+                 </p>
+             </td>
+         </tr>
+     
+     
+          <tr>
+             <td>  
+                 <p>
+                     repos_url
+                 </p>
+                 <p id="repos_url">
+                     
+                 </p>
+             </td>
+         </tr>
+         
+         <tr>
+             <td> 
+                 <p>
+                     events_url
+                 </p>
+                 <p id="events_url">
+                     
+                 </p>
+             </td>
+         </tr> 
+         
+         <tr>
+             <td> 
+                 <p>
+                     received_events_url
+                 </p>
+                 <p id="received_events_url">
+                     
+                 </p>
+             </td>
+         </tr> 
+     
+         <tr>
+             <td> 
+                 <p>
+                     type
+                 </p>
+                 <p id="type">
+                  
+                 </p>
+             </td>
+         </tr> 
+     
+         <tr>
+             <td> 
+                 <p>
+                     site_admin
+                 </p>
+                 <p id="site_admin">
+                     
+                 </p>
+             </div>
+         </td>
+         </tr> 
+     
+             
+         </div>
+     </table>
+             </center>
+         </body>
+     <script>
+          if('serviceWorker' in navigator){
+             window.addEventListener('load',()=>{
+                 navigator.serviceWorker.register('sw.js')
+             .then(registration =>{
+                 console.log('service worker is registered',registration);
+             })
+             .catch(err =>{
+                 console.log('Registration failed',err);
+             })
+             })
+         }
+         
+         function gitdata(){
+     
+         var url='https://api.github.com/users/'+document.getElementById('text_input').value;
+     
+         fetch(url)
+         .then(response => response.json())
+         .then(data => {
+             console.log(data.avatar_url)
+             var im = document.getElementById("image");
+             im.setAttribute("src",data.avatar_url);
+             //var gi= document.getElementById('para');
+             //gi.innerHTML=JSON.stringify(data);
+             document.getElementById('url').innerHTML=data.url;
+                 document.getElementById('html_url').innerHTML=data.html_url;
+                 document.getElementById('followers').innerHTML=data.followers;
+                 document.getElementById('following').innerHTML=data.following;
+                 document.getElementById('gists_url').innerHTML=data.gists_url;
+                 document.getElementById('starred_url').innerHTML=data.starred_url;
+                 document.getElementById('subscriptions_url').innerHTML=data.subscriptions_url;
+                 document.getElementById('organizations_url').innerHTML=data.organizations_url;
+                 document.getElementById('repos_url').innerHTML=data.repos_url;
+                 document.getElementById('events_url').innerHTML=data.events_url;
+                 document.getElementById('received_events_url').innerHTML=data.received_events_url;
+                 document.getElementById('type').innerHTML=data.type;
+                 document.getElementById('site_admin').innerHTML=data.site_admin;
+         })
+     
+         .catch(function(response){
+             return response.status;
+             console.log(response.status);
+         });;
+         
+         
+         
+     }
+     </script>
+    </body>
+
+</html>
